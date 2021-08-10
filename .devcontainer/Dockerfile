@@ -5,6 +5,11 @@ ARG USER_UID=9999
 ARG USER_GID=$USER_UID
 ARG PASSWORD="1111"
 ARG WORKSPACEFOLDER="project"
+ARG GIT_USER="vscode"
+ARG GIT_EMAIL="vscode@vscode.vscode"
+ARG DB_PORT="5432"
+#/etc/postgresql/12/main
+# postgresql.conf
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME -p $(openssl passwd -crypt $PASSWORD) \
@@ -17,10 +22,15 @@ RUN groupadd --gid $USER_GID $USERNAME \
         libsasl2-dev libtiff5-dev libjpeg62-turbo-dev libopenjp2-7-dev\
         zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev\
         libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev\
-    && apt-get -y install postgresql\
+    && apt-get -y install postgresql-11\
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME\
     && mkdir /home/$USERNAME/.ssh\
+    && echo "[user]\n"\
+        "\tname = $GIT_USER\n"\
+        "\temail = $GIT_EMAIL\n"\
+        >> /home/$USERNAME/.gitconfig\
+    && echo "port = $DB_PORT" >> /etc/postgresql/11/main/postgresql.conf\
     && chown ${USERNAME}:${USERNAME} /home/$USERNAME/.ssh\
     && sudo service postgresql start\
     && sudo -u postgres createuser --superuser $USERNAME\

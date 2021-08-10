@@ -10,6 +10,9 @@
 			"USERNAME": "devuser",
 			"PASSWORD": "1111",
 			"WORKSPACEFOLDER": "${localWorkspaceFolderBasename}",
+			"GIT_USER": "edward_yoch",
+			"GIT_EMAIL": "edward.y@ventor.tech",
+			"DB_PORT": "2345",
 		}
 	},
 	// Выбираем рабочую папку отличную от папки с .devcontainer
@@ -69,7 +72,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8069,5432],
+	"forwardPorts": [8069,2345],
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	// "portsAttributes": {
@@ -86,7 +89,7 @@
 	// Предварительно скопировать ключи в папку сборки образа
 	//"initializeCommand":"cp -avr /home/$whoami/.ssh/ ${localWorkspaceFolder}/.ssh/",
 	// Команда, выполняемая после создания контейнера.
-	"postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/postcreate.sh ${localWorkspaceFolderBasename}",
+	"postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/postcreate.sh ${localWorkspaceFolderBasename} 2345",
 	// Команда выполняемая при подключении к контейнеру (запускаем базу данных)
 	"postAttachCommand": "sudo service postgresql start",
 

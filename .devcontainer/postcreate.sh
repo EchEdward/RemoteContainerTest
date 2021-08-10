@@ -11,6 +11,6 @@ sudo pip3 install --upgrade pip
 sudo pip3 install -r /opt/$1/odoo/requirements.txt
 sudo service postgresql start
 createdb workdb
-bash /workspaces/$1/.devcontainer/odooconfcreate.sh $1
+bash /workspaces/$1/.devcontainer/odooconfcreate.sh $1 $2
 sudo pip3 install -r /opt/$1/.vscode/requirements.txt
 sudo pip3 install pylint-odoo==3.8.0
