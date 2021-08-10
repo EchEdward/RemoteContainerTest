@@ -1,0 +1,2 @@
+rm -r /opt/$1/all-addons/*
+python3 /opt/$1/.vscode/create-links.py --manifest-file=/opt/$1/erp/project_setup/__manifest__.py --addons-path=/opt/$1/erp/ --addons-path=/opt/$1/ext-addons/ --link-path=/opt/$1/all-addons/

@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Init Odoo",
+            "command": "python3 ${workspaceFolder}/odoo/odoo-bin -c odoo.conf --stop-after-init -i workdb,project_setup",
+            "args": [],
+            "type": "shell",
+            "presentation": {
+                "panel": "dedicated",
+            }
+        },
+        {
+            "label": "Create Links",
+            "command": "bash ${workspaceFolder}/.vscode/createlinks.sh ${workspaceFolderBasename}",
+            "args": [],
+            "type": "shell",
+            "presentation": {
+                "panel": "dedicated",
+            }
+        },
+    ]
+}

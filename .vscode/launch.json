@@ -1,0 +1,116 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Odoo Server",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false, // Останавливаться в начале
+            "stopOnPoints": true, // Останавливаться только в точках остановки
+            "python": "${command:python.interpreterPath}",
+            //"console": "integratedTerminal", // Открыть во встроенной консоле
+            "console": "internalConsole", // Не открывать в консоле, а выводить в дебаг
+            //"preLaunchTask": "echotest", // Предварительное выполнение задачи перед запуском
+            "internalConsoleOptions": "openOnSessionStart", // Автоматическое отоброжение дебаг консоли при запуске
+            "program": "${workspaceRoot}/odoo/odoo-bin",
+            "args": [
+                "--config=${workspaceRoot}/odoo.conf",
+                // "--update=l10n_us_states",
+            ],
+            // Текущий рабочий каталог для поиска зависимостей и других файлов
+            "cwd": "${workspaceRoot}",
+            // "env": {},
+            // "envFile": "/opt/odoo/13.0/venv/",
+            "debugOptions": [
+                "RedirectOutput",
+            ]
+        },
+        {
+            "name": "Python: Odoo Tests",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "stopOnPoints": true,
+            "python": "${command:python.interpreterPath}",
+            //"console": "integratedTerminal",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "program": "${workspaceRoot}/odoo/odoo-bin",
+            "args": [
+                "--config=${workspaceRoot}/odoo.conf",
+                "--test-enable",
+                "--test-tags=sale_order_import",
+                "--init=sale_order_import",
+                "--stop-after-init",
+            ],
+            "cwd": "${workspaceRoot}",
+            "debugOptions": [
+                "RedirectOutput",
+                //"WaitOnAbnormalExit",
+                //"WaitOnNormalExit",
+            ]
+        },
+        {
+            "name": "Python: Coverage Run",
+            "type": "python",
+            "request": "launch",
+            "noDebug": true,
+            "python": "${command:python.interpreterPath}",
+            "console": "integratedTerminal",
+            "program": "-m",
+            "args": [
+                "coverage",
+                "run",
+                "--source=${workspaceRoot}/erp/sale_order_import",
+                "${workspaceRoot}/odoo/odoo-bin",
+                "--config=${workspaceRoot}/odoo.conf",
+                "--test-enable",
+                "--test-tags=sale_order_import",
+                "--init=sale_order_import",
+                "--log-level=test",
+                "--stop-after-init",
+            ],
+            "cwd": "${workspaceRoot}",
+            "debugOptions": [
+            ]
+        },
+        {
+            "name": "Python: Coverage Report",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "stopOnPoints": true,
+            "python": "${command:python.interpreterPath}",
+            "console": "integratedTerminal",
+            "program": "-m",
+            "args": [
+                "coverage",
+                "report",
+                "-m"
+            ],
+            "cwd": "${workspaceRoot}",
+            "debugOptions": [
+
+            ]
+        },
+        {
+            //./odoo-bin shell -c /opt/projects/kabs/13.0/odoo.conf --shell-interface ipython
+            "name": "Python: Odoo Shell",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "stopOnPoints": true,
+            "python": "${command:python.interpreterPath}",
+            "console": "integratedTerminal",
+            "program": "${workspaceRoot}/odoo/odoo-bin",
+            "args": [
+                "shell",
+                "--config=${workspaceRoot}/odoo.conf",
+                "--shell-interface=ipython",
+            ],
+        },
+    ]
+}

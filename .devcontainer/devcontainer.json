@@ -1,0 +1,94 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.185.0/containers/python-3
+{
+	"name": "Python 3",
+	"remoteUser": "devuser",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": { 
+			"USERNAME": "devuser",
+			"PASSWORD": "1111",
+			"WORKSPACEFOLDER": "${localWorkspaceFolderBasename}",
+		}
+	},
+	// Выбираем рабочую папку отличную от папки с .devcontainer
+	"workspaceFolder": "/opt/${localWorkspaceFolderBasename}",
+	// Добавляем в окужение oDoo, чтоб нормально работало автодополнение
+	"containerEnv": {
+		"PYTHONPATH": "/opt/${localWorkspaceFolderBasename}/odoo",
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.profiles.linux": {
+			"bash": {
+				"path": "/bin/bash"
+			}
+		},
+		"terminal.integrated.defaultProfile.linux": "bash",
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"python.pythonPath": "/usr/local/bin/python",
+        // "python.defaultInterpreterPath": "/opt/odoo/14.0/venv/bin/python3",
+        // "python.terminal.activateEnvironment": true,
+
+        "terminal.integrated.env.linux": {
+            "PYTHONPATH": "/opt/${localWorkspaceFolderBasename}/odoo"
+        },
+        // "python.envFile": "${workspaceFolder}/.devcontainer/.env",
+
+		"python.languageServer": "Pylance",
+
+        "python.linting.enabled": true,
+        "python.linting.flake8Enabled": true,
+        // "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+        "python.linting.flake8Args": [
+            "--max-line-length=100",
+            "--ignore=E123,E226,E24,E704,W503,W504"
+            //--format=%(row)d,%(col)d,%(code).1s,%(code)s:%(text)s
+        ],
+        "python.linting.pylintEnabled": true,
+        // "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+        "python.linting.pylintArgs": [
+            "--load-plugins=pylint_odoo",
+            "--valid_odoo_versions=14.0",
+            "-e",
+            "odoolint",
+            "--disable=C0116,C0114,C0115,C0302,E0611,E1101,W8113,W0212,C0103,W8115,W8120,W1201,W0201",
+            // "--msg-template='{line},{column},{msg_id},{symbol}:{msg}",
+        ]
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"mstuttgart.odoo-snippets",
+		"jigar-patel.odoosnippets",
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8069,5432],
+
+	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
+	// "portsAttributes": {
+	// 	"9000": {
+	// 		"label": "Hello Remote World",
+	// 		"onAutoForward": "notify"
+	// 	}
+	// },
+
+	// Use 'otherPortsAttributes' to configure any ports that aren't configured using 'portsAttributes'.
+	// "otherPortsAttributes": {
+	// 		"onAutoForward": "silent"
+	// },
+	// Предварительно скопировать ключи в папку сборки образа
+	//"initializeCommand":"cp -avr /home/$whoami/.ssh/ ${localWorkspaceFolder}/.ssh/",
+	// Команда, выполняемая после создания контейнера.
+	"postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/postcreate.sh ${localWorkspaceFolderBasename}",
+	// Команда выполняемая при подключении к контейнеру (запускаем базу данных)
+	"postAttachCommand": "sudo service postgresql start",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+}
