@@ -30,8 +30,7 @@
 		},
 		"terminal.integrated.defaultProfile.linux": "bash",
 		"terminal.integrated.shell.linux": "/bin/bash",
-		"python.pythonPath": "/usr/local/bin/python",
-        // "python.defaultInterpreterPath": "/opt/odoo/14.0/venv/bin/python3",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
         // "python.terminal.activateEnvironment": true,
 
         "terminal.integrated.env.linux": {
