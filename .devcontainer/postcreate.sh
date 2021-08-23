@@ -1,5 +1,6 @@
 # cp -r /home/$(whoami)/ssh_dump/. /home/$(whoami)/.ssh
-cp -avr /workspaces/kabs_remote_container/.vscode/ /opt/kabs_remote_container/.vscode/
+sudo chown $(whoami):$(whoami) /opt/$1
+cp -avr /workspaces/$1/.vscode/ /opt/$1/.vscode
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 ssh-keyscan -H git.ventor.tech >> ~/.ssh/known_hosts
 git clone git@git.ventor.tech:kabs/erp.git /opt/$1/erp
