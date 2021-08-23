@@ -15,6 +15,7 @@
 			"DB_PORT": "2345",
 		}
 	},
+	"runArgs": ["--name", "${localWorkspaceFolderBasename}"],
 	// Выбираем рабочую папку отличную от папки с .devcontainer
 	"workspaceFolder": "/opt/${localWorkspaceFolderBasename}",
 	// Добавляем в окужение oDoo, чтоб нормально работало автодополнение
